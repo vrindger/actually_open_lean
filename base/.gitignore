@@ -1,0 +1,9 @@
+src/*
+*.pyc
+*/__pycache__
+*__pycache__
+__pycache__
+*cpython*
+utilities/__pycache__/globals.cpython-311.pyc
+bin
+obj

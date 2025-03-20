@@ -1,0 +1,3 @@
+[submodule "base/Lean"]
+	path = base/Lean
+	url = git@github.com:QuantConnect/Lean.git

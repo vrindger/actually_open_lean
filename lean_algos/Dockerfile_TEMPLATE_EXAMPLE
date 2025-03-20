@@ -1,0 +1,108 @@
+#
+#   LEAN Docker Container 20200522
+#   Cross platform deployment for multiple brokerages
+#
+
+# Use base system
+FROM quantconnect/lean:foundation
+LABEL name="lean"
+
+RUN apt-get install -y git
+
+ENV BASE_DIR=/base
+ENV CICD_DIR=$BASE_DIR/cicd
+ENV CODE_DIR=$BASE_DIR/src
+ENV LEAN_DIR=$CODE_DIR/Lean
+
+ENV LEAN_RELEASE_DIR=$CODE_DIR/Lean/Launcher/bin/Release
+ENV LEAN_DEBUG_DIR=$CODE_DIR/Lean/Launcher/bin/Debug
+
+ENV ALPACA_DIR=$CODE_DIR/Lean.Brokerages.Alpaca
+ENV BINANCE_DIR=$CODE_DIR/Lean.Brokerages.Binance
+ENV BYBIT_DIR=$CODE_DIR/Lean.Brokerages.ByBit
+ENV IB_DIR=$CODE_DIR/Lean.Brokerages.InteractiveBrokers
+ENV KRAKEN_DIR=$CODE_DIR/Lean.Brokerages.Kraken
+
+ENV LEAN_CONFIG_BASE=$BASE_DIR/lean_configs
+
+
+COPY ./base /base/
+# Set GitHub username and PAT as build arguments
+ARG GITHUB_USERNAME
+ARG GITHUB_PAT
+
+# Run the Git configuration script
+RUN chmod +x $CICD_DIR/configure_git.sh && $CICD_DIR/configure_git.sh $GITHUB_USERNAME $GITHUB_PAT
+
+# Set working directory to CODE_DIR
+WORKDIR $CODE_DIR 
+
+COPY ./Lean-master $LEAN_DIR
+# Clone Lean repository
+# RUN git clone https://github.com/QuantConnect/Lean $LEAN_DIR
+
+# Clone and copy brokerage addons
+RUN git clone https://github.com/QuantConnect/Lean.Brokerages.Alpaca $ALPACA_DIR && \
+    cp -rf $ALPACA_DIR/QuantConnect.AlpacaBrokerage $LEAN_DIR
+    
+RUN git clone https://github.com/QuantConnect/Lean.Brokerages.Binance $BINANCE_DIR && \
+    cp -rf $BINANCE_DIR/QuantConnect.BinanceBrokerage $LEAN_DIR && \
+    cp -rf $BINANCE_DIR/QuantConnect.BinanceBrokerage.ToolBox $LEAN_DIR
+
+RUN git clone https://github.com/QuantConnect/Lean.Brokerages.ByBit $BYBIT_DIR && \
+    cp -rf $BYBIT_DIR/QuantConnect.BybitBrokerage $LEAN_DIR && \
+    cp -rf $BYBIT_DIR/QuantConnect.BybitBrokerage.ToolBox $LEAN_DIR
+
+RUN git clone https://github.com/QuantConnect/Lean.Brokerages.InteractiveBrokers $IB_DIR && \
+    cp -rf $IB_DIR/QuantConnect.InteractiveBrokersBrokerage $LEAN_DIR
+
+RUN git clone https://github.com/QuantConnect/Lean.Brokerages.Kraken $KRAKEN_DIR && \
+    cp -rf $KRAKEN_DIR/QuantConnect.KrakenBrokerage $LEAN_DIR   && \
+    cp -rf $KRAKEN_DIR/QuantConnect.KrakenBrokerage.ToolBox $LEAN_DIR
+
+# Disable QuantConnect license check
+RUN sed -i 's/^\s*ValidateSubscription();/\/\/&/' $LEAN_DIR/QuantConnect.AlpacaBrokerage/AlpacaBrokerage.cs && \
+    sed -i 's/^\s*ValidateSubscription();/\/\/&/' $LEAN_DIR/QuantConnect.BinanceBrokerage/BinanceBrokerage.cs && \
+    sed -i 's/^\s*ValidateSubscription();/\/\/&/' $LEAN_DIR/QuantConnect.BybitBrokerage/BybitBrokerage.cs && \
+    sed -i 's/^\s*ValidateSubscription();/\/\/&/' $LEAN_DIR/QuantConnect.InteractiveBrokersBrokerage/InteractiveBrokersBrokerage.cs && \
+    sed -i 's/^\s*ValidateSubscription();/\/\/&/' $LEAN_DIR/QuantConnect.KrakenBrokerage/KrakenBrokerage.cs
+
+# Clone and copy customizations
+RUN git clone https://github.com/vrindger/deepblazar.git $DEEPBLAZAR_DIR && \
+    cp -rf $DEEPBLAZAR_DIR/FinvizEarnings $LEAN_DIR
+
+# Lean customizations
+RUN echo log.txt >> $LEAN_DIR/.gitignore
+
+# Add projects
+WORKDIR $LEAN_DIR/Launcher
+RUN dotnet add reference ../QuantConnect.AlpacaBrokerage/QuantConnect.AlpacaBrokerage.csproj && \
+    dotnet add reference ../QuantConnect.BinanceBrokerage/QuantConnect.BinanceBrokerage.csproj && \
+    dotnet add reference ../QuantConnect.BinanceBrokerage.ToolBox/QuantConnect.BinanceBrokerage.ToolBox.csproj && \
+    dotnet add reference ../QuantConnect.BybitBrokerage/QuantConnect.BybitBrokerage.csproj && \
+    dotnet add reference ../QuantConnect.BybitBrokerage.ToolBox/QuantConnect.BybitBrokerage.ToolBox.csproj && \
+    dotnet add reference ../QuantConnect.InteractiveBrokersBrokerage/QuantConnect.InteractiveBrokersBrokerage.csproj && \
+    dotnet add reference ../QuantConnect.KrakenBrokerage/QuantConnect.KrakenBrokerage.csproj && \
+    dotnet add reference ../QuantConnect.KrakenBrokerage.ToolBox/QuantConnect.KrakenBrokerage.ToolBox.csproj
+
+WORKDIR $LEAN_DIR
+RUN dotnet sln add QuantConnect.AlpacaBrokerage/*csproj && \
+    dotnet sln remove Tests/*csproj
+
+# Run the setup script
+ARG CONFIG_TO_USE
+
+# HARDCODING - FIX TODO assumes config in config.sh in config dir
+RUN chmod +x $LEAN_CONFIG_BASE/$CONFIG_TO_USE/config.sh && \
+    bash $LEAN_CONFIG_BASE/$CONFIG_TO_USE/config.sh 
+
+# Source /etc/environment to make the variables available
+RUN chmod +x $CICD_DIR/copy_algo.sh && \
+    bash $CICD_DIR/copy_algo.sh
+
+# Build Lean
+RUN dotnet build -c Debug
+
+# Set the entrypoint
+WORKDIR $LEAN_DEBUG_DIR
+ENTRYPOINT ["dotnet", "QuantConnect.Lean.Launcher.dll"]

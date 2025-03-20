@@ -1,0 +1,6 @@
+docker compose instead of dockerfile!?
+clone LEAN dir if it doesn't exist
+Cleaner dir structure
+better docker organization? 
+definitely python app to run configs 
+    - pick Debug or Release in command line arg
