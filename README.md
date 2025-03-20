@@ -25,10 +25,10 @@ I'm a simple musician (robinhood?) and this trading stuff is just annoying to me
 
 ### Supported Operating Systems
 this uses bash scripts and docker
-  *   Linux
-  *   macOS bash shell? 
-  *   Windows subsystem for Linux
-  *   Windows not supported unfortunately unless you can get it to work with the Windows bash shell. Yucghk
+  *   `Linux` - `Ubuntu` is what I use, but this is written in `bash` and generic so, in theory, it should work on `all flavors` that have a `bash` shell.
+  *   `macOS` bash shell? - untested waters for me
+  *   `Windows subsystem for Linux (WSL)` - i was using Ubuntu here also
+  *   `Windows` NOT supported unfortunately - unless you can get it to work with the Windows bash shell and docker somehow. Yucghk
 
 ### `lean_algos` Your main script directory = lean_algos/MyLeanAlgorithmTemplate
 
@@ -94,7 +94,7 @@ Install python, pylance vscode extensions
     * `pip install quantconnect-stubs`
   * in vs code press ctrl-shift-p or cmd-shift-p and select python interpreter: `.conda/envs/lean/python`
 
-* Install docker desktop
+* Install docker desktop or engine - either one works
   * look at docker desktop installation instructions for ubuntu or ur linux
 
 * Install git
@@ -140,6 +140,51 @@ RUN sed -i 's/^\s*ValidateSubscription();/\/\/&/' $LEAN_DIR/QuantConnect.AlpacaB
 ## Step 3 - Run bash script
 
 `bash MyLeanAlgorithm.sh` 
+
+## Step 4 - Lean is running
+If you see this output you are good to go - you will need to add your API keys in your config and take it from here yourself:
+
+```
+20250320 11:29:05.708 TRACE:: AlpacaBrokerage.Initialize(): Option failed to connect to live feed 'opra', will retry with free feed
+20250320 11:29:05.716 TRACE:: AlpacaStreamingClientWrapper.ConnectAndAuthenticateAsync(Option): try connecting free feed
+20250320 11:29:05.716 TRACE:: StreamingClient_OnWarning(AlpacaStreamingClientWrapper): AlpacaOptionsStreamingClient set content type to: application/msgpack
+20250320 11:29:05.850 TRACE:: StreamingClient_SocketOpened(AlpacaStreamingClientWrapper): SocketOpened
+20250320 11:29:05.894 TRACE:: StreamingClient_Connected(AlpacaStreamingClientWrapper): Unauthorized
+20250320 11:29:05.894 TRACE:: AlpacaBrokerage.Initialize(): Option failed to connect to live feed 'indicative'
+20250320 11:29:05.909 ERROR:: Engine.Run():  System.InvalidOperationException: Connect(): Failed to connect to AlpacaStreamingClientWrapper
+   at QuantConnect.Brokerages.Alpaca.AlpacaBrokerage.Connect() in QuantConnect.AlpacaBrokerage/AlpacaBrokerage.cs:line 628
+   at QuantConnect.Brokerages.Alpaca.AlpacaBrokerage.SetJob(LiveNodePacket job) in QuantConnect.AlpacaBrokerage/AlpacaBrokerage.DataQueueHandler.cs:line 78
+   at QuantConnect.Lean.Engine.DataFeeds.DataQueueHandlerManager.SetJob(LiveNodePacket job) in Engine/DataFeeds/DataQueueHandlerManager.cs:line 182
+   at QuantConnect.Lean.Engine.DataFeeds.LiveTradingDataFeed.Initialize(IAlgorithm algorithm, AlgorithmNodePacket job, IResultHandler resultHandler, IMapFileProvider mapFileProvider, IFactorFileProvider factorFileProvider, IDataProvider dataProvider, IDataFeedSubscriptionManager subscriptionManager, IDataFeedTimeProvider dataFeedTimeProvider, IDataChannelProvider dataChannelProvider) in Engine/DataFeeds/LiveTradingDataFeed.cs:line 103
+   at QuantConnect.Lean.Engine.Engine.Run(AlgorithmNodePacket job, AlgorithmManager manager, String assemblyPath, WorkerThread workerThread) in Engine/Engine.cs:line 177
+20250320 11:29:05.910 TRACE:: JOB HANDLERS:
+         DataFeed:             QuantConnect.Lean.Engine.DataFeeds.LiveTradingDataFeed
+         Setup:                QuantConnect.Lean.Engine.Setup.BrokerageSetupHandler
+         RealTime:             QuantConnect.Lean.Engine.RealTime.LiveTradingRealTimeHandler
+         Results:              QuantConnect.Lean.Engine.Results.LiveTradingResultHandler
+         Transactions:         QuantConnect.Lean.Engine.TransactionHandlers.BrokerageTransactionHandler
+         Object Store:         QuantConnect.Lean.Engine.Storage.LocalObjectStore
+         History Provider:     
+         Brokerage:            QuantConnect.Brokerages.Alpaca.AlpacaBrokerage
+         Data Provider:        QuantConnect.Lean.Engine.DataFeeds.DefaultDataProvider
+
+20250320 11:29:05.911 TRACE:: StopSafely(): Waiting for 'RealTimeScheduleEventService' thread to stop...
+20250320 11:29:05.912 TRACE:: StopSafely(): Waiting for 'Result Thread' thread to stop...
+20250320 11:29:05.913 ERROR:: Algorithm.Initialize() Error: Connect(): Failed to connect to AlpacaStreamingClientWrapper Stack Trace: Connect(): Failed to connect to AlpacaStreamingClientWrapper
+ Connect(): Failed to connect to AlpacaStreamingClientWrapper
+20250320 11:29:05.913 TRACE:: LiveTradingResultHandler.Run(): Ending Thread...
+20250320 11:29:05.914 TRACE:: LiveTradingResultHandler.SendFinalResult(): Starting...
+20250320 11:29:05.964 TRACE:: LiveTradingResultHandler.SendFinalResult(): Finished storing results. Start sending...
+20250320 11:29:05.964 TRACE:: LiveTradingResultHandler.SendFinalResult(): Ended
+20250320 11:29:05.964 TRACE:: Engine.Run(): Disconnecting from brokerage...
+20250320 11:29:05.966 ERROR:: Engine.Run(): Error running algorithm System.NullReferenceException: Object reference not set to an instance of an object.
+   at QuantConnect.Extensions.SynchronouslyAwaitTask(Task task) in Common/Extensions.cs:line 3338
+   at QuantConnect.Brokerages.Alpaca.AlpacaBrokerage.Disconnect() in QuantConnect.AlpacaBrokerage/AlpacaBrokerage.cs:line 669
+   at QuantConnect.Lean.Engine.Engine.Run(AlgorithmNodePacket job, AlgorithmManager manager, String assemblyPath, WorkerThread workerThread) in Engine/Engine.cs:line 426
+Engine.Main(): Analysis Complete.
+20250320 11:29:05.967 TRACE:: Config.GetValue(): close-automatically - Using default value: False
+Engine.Main(): Press any key to continue.
+```
 
 # Random important notes:
 * there's a `string` ticker for instruments like 'BTCUSDT' or 'GOOGL'. 
