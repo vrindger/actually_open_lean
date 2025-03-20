@@ -8,16 +8,16 @@ Some caveats though:
 1. if you make money from this, please please please do share some with me as I'm still in a 9 to 5 x 50 year rut
 1. It's a very rudimentary setup with shell scripts and plain docker. Should toally be pythonized
 2. It doesn't have plotting
-3. No warranties absolutely not
+3. No warranties absolutely not. This is fully open source and usable as is for any purposes without warranties
 4. If u have pull requests for nice features, I will integrate them in for the world. 
 
 ## I'm a broke guy. Please pay me if you made money from this, which I know some of you will, given that 40% of IB accounts are profitable...!!:
 
 My receiving wallets:
-Ethereum 0xd576227aCc7d74259F66a8AFd379C7f36eCee41A (includes Ethereum compatible networks like Polygon, Arbitrum, OP Mainnet, Base, Blast, Linea and Avalanche)
-Solana ArTNKfq3MWF3JfZXAquE5dhAQQGWiUVNw1ufkuV8WwAU
-Bitcoin bc1q3guagg7zrh3ssw3vgw88jsrj8lulqfzf508u0x
-Dogecoin DSRYJhMLzyiQajrSpZQgc2hfPwpc2gEqae
+* Ethereum 0xd576227aCc7d74259F66a8AFd379C7f36eCee41A (includes Ethereum compatible networks like Polygon, Arbitrum, OP Mainnet, Base, Blast, Linea and Avalanche)
+* Solana ArTNKfq3MWF3JfZXAquE5dhAQQGWiUVNw1ufkuV8WwAU
+* Bitcoin bc1q3guagg7zrh3ssw3vgw88jsrj8lulqfzf508u0x
+* Dogecoin DSRYJhMLzyiQajrSpZQgc2hfPwpc2gEqae
 
 I'm a simple musician (robinhood?) and this trading stuff is just annoying to me https://www.youtube.com/shorts/pHl_lISFGJ0
 
