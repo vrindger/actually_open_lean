@@ -19,7 +19,7 @@ My receiving wallets:
 * Bitcoin bc1q3guagg7zrh3ssw3vgw88jsrj8lulqfzf508u0x
 * Dogecoin DSRYJhMLzyiQajrSpZQgc2hfPwpc2gEqae
 
-I'm a simple musician (robinhood?) and this trading stuff is just annoying to me https://www.youtube.com/shorts/pHl_lISFGJ0
+I'm a simple musician (robinhood?) and this trading stuff is just annoying to me
 
 ## Documentation
 
