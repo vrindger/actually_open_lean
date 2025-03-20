@@ -50,11 +50,12 @@ Check the template dir `MyLeanAlgorithmTemplate` for a 'non-functional' python L
     * `config.sh` - This is my config file for building the Docker container. It simply adds the variables for this Algo to a shell variable. Open to pull requests!
     * `Dockerfile_MyLeanAlgorithm` - This builds the docker file. Please add whatever stuff you need in here. For brokerages, you will need to copy and paste my line to comment out `ValidateSubscription()` from the Brokerage code and other stuff I have in there. Other than that I know I've added AWS, my own projects, several brokerages etc. This example shows you one brokerage, but it should at least get you up to  executing the algorithm script you put in `MyLeanAlgorithm.py`. Bitcoin and other wallet addresses above :')
     * `MyLeanAlgorithm.sh` - This is the final file that you will run using `bash MyLeanAlgorithm.sh` in a Linux shell to run the docker container that will run the lean algo. It contains cleanup code that cleans old containers with Lean executions that you canceled with Ctrl-C keyboard interrupts..If history is important, you will want to remove those. Crap this is only for Linux right now because it's a shell script. Open to pull requests lol 
+    * For cloning brokerage projects in the Dockerfile, add `GITHUB_USERNAME` and `GITHUB_PAT` (your personal access token) as environment variables to your local environment. In linux you would use `export GITHUB_USERNAME=vrindger` etc...
 
 That's it! Run your algorithm by going into it's directory and executing `bash MyLeanAlgorithm.sh`! You will see the magical Lean get instantiated locally if you did everything right and pay me at all my crypto wallets above.
 
 
-# Step 0.0 - motivation
+# Step 0.0 - trading motivation
 
 
 * money is a problem that can be solved - forest gump after pwning apple stock
@@ -70,12 +71,12 @@ That's it! Run your algorithm by going into it's directory and executing `bash M
 * instead of doing all this, u can pay like USD `$`1080/mo on quantconnect.com for an institution seat to run locally or $10/mo to run on their cloud servers which might cost more - 60/mo or something not sure. idc because i like my free on-premise live trading institution grade version below
 * definitely review their pricing page: https://www.quantconnect.com/pricing u will have to click choose tier to see the options.
 * u'll still need to write ur own algo. The config stuff, they take care of for you with their 'open source' lean-CLI
-* also like install docker, set up vs code
-* but U won't need my dockerfile stuff or brokerage stuff I have. They have backtesting in their lean-cli which is also open source but I have not cracked it yet - too much subscription code in it as opposed to one line in Brokerage code lol. 
+* also u'll still need to like install docker, set up vs code
+* but U won't need my dockerfile stuff or brokerage stuff. They have backtesting in their lean-cli which is also open source but I have not cracked it yet - too much subscription code in it as opposed to one line in Lean's Brokerage code lol.
 
 # Step 0: Train and learn lean engine algo-writing
 There's a [bootcamp](https://www.quantconnect.com/learning/course/1/Boot-Camp-101-US-Equities)
-And tons of beautiful, [documentation](https://www.quantconnect.com/docs/v2) on the engine online with youtube videos, a [discord group](https://discord.gg/WrWdCewf) where Jared and his AI Mia Khalisi personally help you, [a class reference](https://www.lean.io/docs/v2/lean-engine/class-reference/classQuantConnect_1_1Algorithm_1_1QCAlgorithm.html), slack group?, etc.....Too much stuff to help you become experts at writing Lean algorithms but not at executing them :') - just remember my wallet addresses please
+And tons of beautiful, [documentation](https://www.quantconnect.com/docs/v2) on the engine online with youtube videos, a [discord group](https://discord.gg/WrWdCewf) where Jared and his AI Mia Khalisi personally help you, [a class reference](https://www.lean.io/docs/v2/lean-engine/class-reference/classQuantConnect_1_1Algorithm_1_1QCAlgorithm.html) (just google for class u need), a slack group?, etc.....Too much stuff to help you become experts at writing Lean algorithms but not at executing them :') - just remember my wallet addresses please
 
 # Detailed Documentation
 ## Step 0.1: Install stuff
@@ -142,7 +143,7 @@ RUN sed -i 's/^\s*ValidateSubscription();/\/\/&/' $LEAN_DIR/QuantConnect.AlpacaB
 `bash MyLeanAlgorithm.sh` 
 
 ## Step 4 - Lean is running
-If you see this output you are good to go - you will need to add your API keys in your config and take it from here yourself:
+If you see this output, this is Hello World for this project = you are good to go - you will need to add your API keys in your config and take it from here yourself:
 
 ```
 20250320 11:29:05.708 TRACE:: AlpacaBrokerage.Initialize(): Option failed to connect to live feed 'opra', will retry with free feed
