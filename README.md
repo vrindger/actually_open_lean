@@ -101,9 +101,19 @@ Install python, pylance vscode extensions
 * Install git
   * `apt install git`
 
-* git clone my project: 
+* git clone my project to another project using a origin replace:
+* You want to create a static copy of your GitHub repository, including its submodule, into a new repository without any ongoing synchronization. This means you want a one-time, independent copy. Here's how to achieve that:
   * `git clone https://github.com/vrindger/actually_open_lean --recurse-submodules`
     * yes you will need to [add your computer's key to your Github account](https://stackoverflow.com/a/41716198) to be able to recurse the submodule `Lean`. You don't need Step 3.2 that last step to force private key..
+  * `cd actually_open_lean`
+  * Create a new PRIVATE repository inside your Github account
+  * Note the repo url for the above new repository
+  * `git remote add new_origin <new_repo_url>`
+  * `git push -u new_origin --all`
+  * `git push -u new_origin --tags`
+  * `git remote remove old_origin`
+  * `git remote rename new_origin origin`
+  That should be it for setting up your repo!! Lean submodule should automatically be in your new repo. 
 
 
 ## Step 0.2: Decide what u want to trade and pick brokerages
