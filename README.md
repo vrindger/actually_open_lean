@@ -1,4 +1,4 @@
-# Actually open source quantconnect lean engine
+# Actually FOSS open source quantconnect lean engine
 
 24-7 in my 911
 
