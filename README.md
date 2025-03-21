@@ -288,7 +288,7 @@ give me great search engine terms 100 for "actually open source quantconnect lea
 Alright, let's craft 100 search engine terms designed to maximize the visibility of your "actually open source QuantConnect LEAN" project on GitHub. We'll target a range of search intents, from general to highly specific.
 
 General Open Source & QuantConnect:
-
+    foss foss foss foss fossest foss free and open source free open source free source 
     open source QuantConnect LEAN
     QuantConnect LEAN open source fork
     LEAN trading engine open source
