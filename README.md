@@ -102,7 +102,9 @@ Install python, pylance vscode extensions
   * `apt install git`
 
 * git clone my project: 
-  * `git clone https://github.com/vrindger/actually_open_lean`
+  * `git clone https://github.com/vrindger/actually_open_lean --recurse-submodules`
+    * yes you will need to [add your computer's key to your Github account](https://stackoverflow.com/a/41716198) to be able to recurse the submodule `Lean`. You don't need Step 3.2 that last step to force private key..
+
 
 ## Step 0.2: Decide what u want to trade and pick brokerages
 
