@@ -1,3 +1,7 @@
+#
+#   LEAN Docker Container 20200522
+#   Cross platform deployment for multiple brokerages
+#
 
 # Use base system
 FROM quantconnect/lean:foundation
@@ -12,7 +16,6 @@ ENV LEAN_DIR=$CODE_DIR/Lean
 ENV LEAN_RELEASE_DIR=$CODE_DIR/Lean/Launcher/bin/Release
 ENV LEAN_DEBUG_DIR=$CODE_DIR/Lean/Launcher/bin/Debug
 ENV ALPACA_DIR=$CODE_DIR/Lean.Brokerages.Alpaca
-ENV LEAN_CONFIG_BASE=.
 
 
 COPY ./base /base/
@@ -27,7 +30,7 @@ RUN chmod +x $CICD_DIR/configure_git.sh && $CICD_DIR/configure_git.sh $GITHUB_US
 # Set working directory to CODE_DIR
 WORKDIR $CODE_DIR 
 
-############################################ MAKE SURE THE CLONE IS THERE IN BASE ############### Clone Lean repository
+# Clone Lean repository
 COPY ./base/Lean $LEAN_DIR
 # RUN git clone https://github.com/QuantConnect/Lean $LEAN_DIR
 
@@ -49,19 +52,10 @@ WORKDIR $LEAN_DIR
 RUN dotnet sln add QuantConnect.AlpacaBrokerage/*csproj && \
     dotnet sln remove Tests/*csproj
 
-# Run the setup script
-ARG CONFIG_TO_USE
-
-COPY ./config.sh $LEAN_CONFIG_BASE/config.sh
-
-RUN chmod +x $LEAN_CONFIG_BASE/config.sh && \
-    bash $LEAN_CONFIG_BASE/config.sh 
-
-COPY $LEAN_CONFIG_FILE $LEAN_CONFIG_BASE/$LEAN_CONFIG_FILE
-COPY ./$ALGO_FILE $LEAN_CONFIG_BASE/$ALGO_FILE 
-# Source /etc/environment to make the variables available
-RUN chmod +x $CICD_DIR/copy_algo.sh && \
-    bash $CICD_DIR/copy_algo.sh
+# Copy the algo and config files 
+#Copy to Algorithm.Csharp for a .cs file
+COPY algo.py $LEAN_DIR/Algorithm.Python    
+COPY config.json $LEAN_DIR/Launcher/config.json
 
 # Build Lean
 RUN dotnet build -c Debug

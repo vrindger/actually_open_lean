@@ -94,7 +94,7 @@ Install python, pylance vscode extensions
 `lean_algos` is the directory where you can place your algo `directory(s)`. Each directory will contain a set of artifacts and be for one algorithm that will be built from scripts within the `MyLeanAlgorithmTemplate` directory
 
 Check the template dir `MyLeanAlgorithmTemplate` for a 'non-functional' python Lean example with some goodies I left in. At a minimum you will always need:
-* A `QCAlgorithm` class written in either .cs or .py - `MyLeanAlgorithm.py` - this is your actual trading algorithm file which can be written in either `python` or `C#`. `C#` for ultimate speed I suppose
+* A `QCAlgorithm` class written in either .cs or .py - `algo.py` - this is your actual trading algorithm file which can be written in either `python` or `C#`. `C#` for ultimate speed I suppose
 * `config.json` file (this will specify import config items, mostly leave unchanged). Change it to add:
     1. your brokerage API keys (yes, KEEP YOUR FORKEDREPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE!!)
 
@@ -102,16 +102,16 @@ Check the template dir `MyLeanAlgorithmTemplate` for a 'non-functional' python L
         "alpaca-api-key": "redacted",
         "alpaca-api-secret": "redacted",
         ```
-    * `algorithm-location`: "../../../Algorithm.Python/MyLeanAlgorithm.py" Yes you need the 3 dots because this will be executed from a dll inside Lean/Launcher/Debug 
+    * `algorithm-location`: "../../../Algorithm.Python/algo.py" Yes you need the 3 dots because this will be executed from a dll inside Lean/Launcher/Debug 
     * `algorithm-language` - Algorithm language selector - options CSharp, Python
     * `algorithm-type-name` - this is the name of the QCAlgorithm class you wrote in either C# or python as explained above.
     * `environment` - The config for the environment that will get run. Search for `live-alpaca` environment later in the example file. It'll mostly just be what I have for live trading. You can set paper for paper i think. Please research live source code to understand this fully?
     * `config.sh` - This is my config file for building the Docker container. It simply adds the variables for this Algo to a shell variable. Open to pull requests!
-    * `Dockerfile_MyLeanAlgorithm` - This builds the docker file. Please add whatever stuff you need in here. For brokerages, you will need to copy and paste my line to comment out `ValidateSubscription()` from the Brokerage code and other stuff I have in there. Other than that I know I've added AWS, my own projects, several brokerages etc. This example shows you one brokerage, but it should at least get you up to  executing the algorithm script you put in `MyLeanAlgorithm.py`. Bitcoin and other wallet addresses above :')
-    * `MyLeanAlgorithm.sh` - This is the final file that you will run using `bash MyLeanAlgorithm.sh` in a Linux shell to run the docker container that will run the lean algo. It contains cleanup code that cleans old containers with Lean executions that you canceled with Ctrl-C keyboard interrupts..If history is important, you will want to remove those. Crap this is only for Linux right now because it's a shell script. Open to pull requests lol 
+    * `Dockerfile` - This builds the docker file. Please add whatever stuff you need in here. For brokerages, you will need to copy and paste my line to comment out `ValidateSubscription()` from the Brokerage code and other stuff I have in there. Other than that I know I've added AWS, my own projects, several brokerages etc. This example shows you one brokerage, but it should at least get you up to  executing the algorithm script you put in `algo.py`. Bitcoin and other wallet addresses above :')
+    * `run_algo.sh` - This is the final file that you will run using `bash run_algo.sh` in a Linux shell to run the docker container that will run the lean algo. It contains cleanup code that cleans old containers with Lean executions that you canceled with Ctrl-C keyboard interrupts..If history is important, you will want to remove those. Crap this is only for Linux right now because it's a shell script. Open to pull requests lol 
     * For cloning brokerage projects in the Dockerfile, add `GITHUB_USERNAME` and `GITHUB_PAT` (your personal access token) as environment variables to your local environment. In linux you would use `export GITHUB_USERNAME=vrindger` etc...
 
-That's it! Run your algorithm by going into it's directory and executing `bash MyLeanAlgorithm.sh`! You will see the magical Lean get instantiated locally if you did everything right and pay me at all my crypto wallets above.
+That's it! Run your algorithm by going into it's directory and executing `bash run_algo.sh`! You will see the magical Lean get instantiated locally if you did everything right and pay me at all my crypto wallets above.
 
 
 ## Step 0.2: Decide what u want to trade and pick brokerages
@@ -155,7 +155,7 @@ Before running the bash script, you will need to set environment variables for G
 export GITHUB_USERNAME=vrindger
 export GITHUB_PAT=yourgithubpersonalaccesstokenhere
 ```
-`bash MyLeanAlgorithm.sh`  or inside another algo scratch, you would run `bash scratch.sh`
+`bash run_algo.sh`  or inside another algo scratch, you would run `bash scratch.sh`
 
 ## Step 4 - Lean is running
 If you see this output, this is Hello World for this project = you are good to go - you will need to add your API keys in your config and take it from here yourself:
