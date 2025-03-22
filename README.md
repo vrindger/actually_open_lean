@@ -1,7 +1,5 @@
 # Actually FOSS open source quantconnect lean engine
 
-24-7 in my 911
-
 This project aims to create a true, actual, non-commercial, community edition or free and open source version of QuantConnect lean. It does not require any subscriptions. It simply makes the beautiful QuantConnect Lean engine available with all the brokers in a local manner for you. Trading is a private affair and I know how important a local platform is for you. It was for me. I've followed Jared Broad over the years, who is the genius CEO and founder of QuantConnect, is actually part Austin Powers, part Dr. Evil and part 'Bhairo becomes Byron because their minds are very narrow' Mini-me is a confused individual. He makes sure all his code is open source, however, the source code is unusable for the majority of the world as it is. He wants you to use his cloud platform and subscriptions despite the engine being open source. Therefore, there are projects like this that need to crop up. I know if I searched for 'actually open source lean' or 'truly open source lean' or 'madly open source lean' or 'deeply open source lean', others must have also. This project aims to help those people, because there isn't such a project currently and this has worked so far for me in my personal trading algorithms. You can fork this, privatize it, use it to make money, whatever. 
 
 Some caveats though:
@@ -30,33 +28,8 @@ this uses bash scripts and docker
   *   `Windows subsystem for Linux (WSL)` - i was using Ubuntu here also
   *   `Windows` NOT supported unfortunately - unless you can get it to work with the Windows bash shell and docker somehow. Yucghk
 
-### `lean_algos` Your main script directory = lean_algos/MyLeanAlgorithmTemplate
-
-`lean_algos` is the directory where you can place your algo `directory(s)`. Each directory will contain a set of artifacts and be for one algorithm that will be built from scripts within the `MyLeanAlgorithmTemplate` directory
-
-Check the template dir `MyLeanAlgorithmTemplate` for a 'non-functional' python Lean example with some goodies I left in. At a minimum you will always need:
-* A `QCAlgorithm` class written in either .cs or .py - `MyLeanAlgorithm.py` - this is your actual trading algorithm file which can be written in either `python` or `C#`. `C#` for ultimate speed I suppose
-* `config.json` file (this will specify import config items, mostly leave unchanged). Change it to add:
-    1. your brokerage API keys (yes, KEEP YOUR FORKEDREPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE!!)
-
-        ```
-        "alpaca-api-key": "redacted",
-        "alpaca-api-secret": "redacted",
-        ```
-    * `algorithm-location`: "../../../Algorithm.Python/MyLeanAlgorithm.py" Yes you need the 3 dots because this will be executed from a dll inside Lean/Launcher/Debug 
-    * `algorithm-language` - Algorithm language selector - options CSharp, Python
-    * `algorithm-type-name` - this is the name of the QCAlgorithm class you wrote in either C# or python as explained above.
-    * `environment` - The config for the environment that will get run. Search for `live-alpaca` environment later in the example file. It'll mostly just be what I have for live trading. You can set paper for paper i think. Please research live source code to understand this fully?
-    * `config.sh` - This is my config file for building the Docker container. It simply adds the variables for this Algo to a shell variable. Open to pull requests!
-    * `Dockerfile_MyLeanAlgorithm` - This builds the docker file. Please add whatever stuff you need in here. For brokerages, you will need to copy and paste my line to comment out `ValidateSubscription()` from the Brokerage code and other stuff I have in there. Other than that I know I've added AWS, my own projects, several brokerages etc. This example shows you one brokerage, but it should at least get you up to  executing the algorithm script you put in `MyLeanAlgorithm.py`. Bitcoin and other wallet addresses above :')
-    * `MyLeanAlgorithm.sh` - This is the final file that you will run using `bash MyLeanAlgorithm.sh` in a Linux shell to run the docker container that will run the lean algo. It contains cleanup code that cleans old containers with Lean executions that you canceled with Ctrl-C keyboard interrupts..If history is important, you will want to remove those. Crap this is only for Linux right now because it's a shell script. Open to pull requests lol 
-    * For cloning brokerage projects in the Dockerfile, add `GITHUB_USERNAME` and `GITHUB_PAT` (your personal access token) as environment variables to your local environment. In linux you would use `export GITHUB_USERNAME=vrindger` etc...
-
-That's it! Run your algorithm by going into it's directory and executing `bash MyLeanAlgorithm.sh`! You will see the magical Lean get instantiated locally if you did everything right and pay me at all my crypto wallets above.
-
 
 # Step 0.0 - trading motivation
-
 
 * money is a problem that can be solved - forest gump after pwning apple stock
 * right approach for trading:
@@ -101,7 +74,7 @@ Install python, pylance vscode extensions
 * Install git
   * `apt install git`
 
-* git clone my project to another project using a origin replace:
+* git clone my project to another project using an origin replace
 * You want to create a static copy of your GitHub repository, including its submodule, into a new repository without any ongoing synchronization. This means you want a one-time, independent copy. Here's how to achieve that:
   * `git clone https://github.com/vrindger/actually_open_lean --recurse-submodules`
     * yes you will need to [add your computer's key to your Github account](https://stackoverflow.com/a/41716198) to be able to recurse the submodule `Lean`. You don't need Step 3.2 that last step to force private key..
@@ -114,6 +87,31 @@ Install python, pylance vscode extensions
   * `git remote remove old_origin`
   * `git remote rename new_origin origin`
   That should be it for setting up your repo!! Lean submodule should automatically be in your new repo. 
+
+
+### `lean_algos` Your main script directory = lean_algos/MyLeanAlgorithmTemplate
+
+`lean_algos` is the directory where you can place your algo `directory(s)`. Each directory will contain a set of artifacts and be for one algorithm that will be built from scripts within the `MyLeanAlgorithmTemplate` directory
+
+Check the template dir `MyLeanAlgorithmTemplate` for a 'non-functional' python Lean example with some goodies I left in. At a minimum you will always need:
+* A `QCAlgorithm` class written in either .cs or .py - `MyLeanAlgorithm.py` - this is your actual trading algorithm file which can be written in either `python` or `C#`. `C#` for ultimate speed I suppose
+* `config.json` file (this will specify import config items, mostly leave unchanged). Change it to add:
+    1. your brokerage API keys (yes, KEEP YOUR FORKEDREPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE!!)
+
+        ```
+        "alpaca-api-key": "redacted",
+        "alpaca-api-secret": "redacted",
+        ```
+    * `algorithm-location`: "../../../Algorithm.Python/MyLeanAlgorithm.py" Yes you need the 3 dots because this will be executed from a dll inside Lean/Launcher/Debug 
+    * `algorithm-language` - Algorithm language selector - options CSharp, Python
+    * `algorithm-type-name` - this is the name of the QCAlgorithm class you wrote in either C# or python as explained above.
+    * `environment` - The config for the environment that will get run. Search for `live-alpaca` environment later in the example file. It'll mostly just be what I have for live trading. You can set paper for paper i think. Please research live source code to understand this fully?
+    * `config.sh` - This is my config file for building the Docker container. It simply adds the variables for this Algo to a shell variable. Open to pull requests!
+    * `Dockerfile_MyLeanAlgorithm` - This builds the docker file. Please add whatever stuff you need in here. For brokerages, you will need to copy and paste my line to comment out `ValidateSubscription()` from the Brokerage code and other stuff I have in there. Other than that I know I've added AWS, my own projects, several brokerages etc. This example shows you one brokerage, but it should at least get you up to  executing the algorithm script you put in `MyLeanAlgorithm.py`. Bitcoin and other wallet addresses above :')
+    * `MyLeanAlgorithm.sh` - This is the final file that you will run using `bash MyLeanAlgorithm.sh` in a Linux shell to run the docker container that will run the lean algo. It contains cleanup code that cleans old containers with Lean executions that you canceled with Ctrl-C keyboard interrupts..If history is important, you will want to remove those. Crap this is only for Linux right now because it's a shell script. Open to pull requests lol 
+    * For cloning brokerage projects in the Dockerfile, add `GITHUB_USERNAME` and `GITHUB_PAT` (your personal access token) as environment variables to your local environment. In linux you would use `export GITHUB_USERNAME=vrindger` etc...
+
+That's it! Run your algorithm by going into it's directory and executing `bash MyLeanAlgorithm.sh`! You will see the magical Lean get instantiated locally if you did everything right and pay me at all my crypto wallets above.
 
 
 ## Step 0.2: Decide what u want to trade and pick brokerages
@@ -152,7 +150,7 @@ RUN sed -i 's/^\s*ValidateSubscription();/\/\/&/' $LEAN_DIR/QuantConnect.AlpacaB
 
 ## Step 3 - Run bash script
 
-`bash MyLeanAlgorithm.sh` 
+`bash MyLeanAlgorithm.sh`  or inside another algo scratch, you would run `bash scratch.sh`
 
 ## Step 4 - Lean is running
 If you see this output, this is Hello World for this project = you are good to go - you will need to add your API keys in your config and take it from here yourself:
@@ -199,7 +197,7 @@ Engine.Main(): Analysis Complete.
 Engine.Main(): Press any key to continue.
 ```
 
-# Random important notes:
+# Random important notes about Lean:
 * there's a `string` ticker for instruments like 'BTCUSDT' or 'GOOGL'. 
 * then there's a Lean Symbol object created from that ticker if u specify US stock like so:  `Market Symbol.create('SPY', SecurityType.EQUITY, Market.USA)`. symbols don't contain very much info.
 * then there's a `Security` that is added to the algorithm which contains the symbol and even more information like exchange and hours etc. It's the active `Security` that gets traded
