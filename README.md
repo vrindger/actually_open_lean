@@ -106,10 +106,10 @@ Check the template dir `MyLeanAlgorithmTemplate` for a 'non-functional' python L
     * `algorithm-language` - Algorithm language selector - options CSharp, Python
     * `algorithm-type-name` - this is the name of the QCAlgorithm class you wrote in either C# or python as explained above.
     * `environment` - The config for the environment that will get run. Search for `live-alpaca` environment later in the example file. It'll mostly just be what I have for live trading. You can set paper for paper i think. Please research live source code to understand this fully?
-    * `config.sh` - This is my config file for building the Docker container. It simply adds the variables for this Algo to a shell variable. Open to pull requests!
-    * `Dockerfile` - This builds the docker file. Please add whatever stuff you need in here. For brokerages, you will need to copy and paste my line to comment out `ValidateSubscription()` from the Brokerage code and other stuff I have in there. Other than that I know I've added AWS, my own projects, several brokerages etc. This example shows you one brokerage, but it should at least get you up to  executing the algorithm script you put in `algo.py`. Bitcoin and other wallet addresses above :')
-    * `run_algo.sh` - This is the final file that you will run using `bash run_algo.sh` in a Linux shell to run the docker container that will run the lean algo. It contains cleanup code that cleans old containers with Lean executions that you canceled with Ctrl-C keyboard interrupts..If history is important, you will want to remove those. Crap this is only for Linux right now because it's a shell script. Open to pull requests lol 
-    * For cloning brokerage projects in the Dockerfile, add `GITHUB_USERNAME` and `GITHUB_PAT` (your personal access token) as environment variables to your local environment. In linux you would use `export GITHUB_USERNAME=vrindger` etc...
+* `algo.py` (or `algo.cs`) - this is what is worth 1080$ / month !!!!!!!!! you simply write your algo and Lean does the rest. Love you jaredbroad - sickkkk object oriented stuff
+* `Dockerfile` - This builds the docker file. Please add whatever stuff you need in here. For brokerages, you will need to copy and paste my line to comment out `ValidateSubscription()` from the Brokerage code and other stuff I have in there. Other than that I know I've added AWS, my own projects, several brokerages etc. This example shows you one brokerage, but it should at least get you up to  executing the algorithm script you put in `algo.py`. Bitcoin and other wallet addresses above :')
+* `run_algo.sh` - This is the final file that you will run using `bash run_algo.sh` in a Linux shell to run the docker container that will run the lean algo. It contains cleanup code that cleans old containers with Lean executions that you canceled with Ctrl-C keyboard interrupts..If history is important, you will want to remove those. Crap this is only for Linux right now because it's a shell script. Open to pull requests lol 
+* For cloning brokerage projects in the Dockerfile, add `GITHUB_USERNAME` and `GITHUB_PAT` (your personal access token) as environment variables to your local environment. In linux you would use `export GITHUB_USERNAME=vrindger` etc...
 
 That's it! Run your algorithm by going into it's directory and executing `bash run_algo.sh`! You will see the magical Lean get instantiated locally if you did everything right and pay me at all my crypto wallets above.
 
@@ -140,12 +140,13 @@ RUN sed -i 's/^\s*ValidateSubscription();/\/\/&/' $LEAN_DIR/QuantConnect.AlpacaB
 
 ## Step 2 - Create your own trading algo! U can copy mine but use your own brokerage keys etc
 
-* Create a new dir in the lean_algos dir with your own config file and .py or .cs file for C#. 
+* Create a new dir in the lean_algos dir with your own config file and an algo.py or algo.cs file for C#.
+
 * To create algo, look at the template dir under `lean_algos`
 
 * `MyLeanAlgorithm` is my example algorithm using my config file(a `config.json`) which used to have my secret keys for my brokerage's paper account. The algorithm file is a .py file.
 
-* Yes, u will need every single file - the json file, an algo file, Dockerfile AND the .sh bash files. this stuff is WIP
+* Yes, u will need every single file - the json file, an algo file, Dockerfile AND the .sh bash file.
 
 
 ## Step 3 - Run bash script
