@@ -153,7 +153,7 @@ RUN sed -i 's/^\s*ValidateSubscription();/\/\/&/' $LEAN_DIR/QuantConnect.AlpacaB
 Before running the bash script, you will need to set environment variables for Git because you will be cloning n number of Brokerage projects for your project. So you can add the following to your ~/.bashrc file in linux:
 ```
 export GITHUB_USERNAME=vrindger
-export GITHUB_PASSWORD=yourgithubpersonalaccesstokenhere
+export GITHUB_PAT=yourgithubpersonalaccesstokenhere
 ```
 `bash MyLeanAlgorithm.sh`  or inside another algo scratch, you would run `bash scratch.sh`
 
