@@ -74,6 +74,7 @@ Install python, pylance vscode extensions
 * Install git
   * `apt install git`
 
+* Add 
 * git clone my project to another project using an origin replace
 * You want to create a static copy of your GitHub repository, including its submodule, into a new repository without any ongoing synchronization. This means you want a one-time, independent copy. Here's how to achieve that:
   * `git clone https://github.com/vrindger/actually_open_lean --recurse-submodules`
@@ -150,6 +151,11 @@ RUN sed -i 's/^\s*ValidateSubscription();/\/\/&/' $LEAN_DIR/QuantConnect.AlpacaB
 
 ## Step 3 - Run bash script
 
+Before running the bash script, you will need to set environment variables for Git because you will be cloning n number of Brokerage projects for your project. So you can add the following to your ~/.bashrc file in linux:
+```
+export GITHUB_USERNAME=vrindger
+export GITHUB_PASSWORD=yourgithubpersonalaccesstokenhere
+```
 `bash MyLeanAlgorithm.sh`  or inside another algo scratch, you would run `bash scratch.sh`
 
 ## Step 4 - Lean is running
