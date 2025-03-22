@@ -72,15 +72,15 @@ Install python, pylance vscode extensions
 * Install git
   * `apt install git`
 
-* Add 
-* git clone my project to another project using an origin replace
-* You want to create a static copy of your GitHub repository, including its submodule, into a new repository without any ongoing synchronization. This means you want a one-time, independent copy. Here's how to achieve that:
+* git clone this repo to another repo of yours using an origin replace.
+* You want to create a static copy of this actually_open_lean GitHub repository, including its submodule, into a new repository without any ongoing synchronization. This means you want a one-time, independent copy. Here's how to achieve that:
   * `git clone https://github.com/vrindger/actually_open_lean --recurse-submodules`
     * yes you will need to [add your computer's key to your Github account](https://stackoverflow.com/a/41716198) to be able to recurse the submodule `Lean`. You don't need Step 3.2 that last step to force private key..
     * if you already cloned it without the --recurse-submodules, you can run this command anywhere inside the cloned repo `git submodule update --init --recursive` and it will pull Lean for you
   * `cd actually_open_lean`
-  * Create a new PRIVATE repository inside your Github account
-  * Note the repo url for the above new repository
+  * Create a new PRIVATE repository inside your Github account. Go to Your Repositories -> New -> Name -> Create 
+  * Note the repo url for your new repository
+  *  `cd actually_open_lean`
   * `git remote add new_origin <new_repo_url>`
   * `git push -u new_origin --all`
   * `git push -u new_origin --tags`
@@ -94,7 +94,7 @@ Install python, pylance vscode extensions
 `lean_algos` is the directory where you can place your algo `directory(s)`. Each directory will contain a set of artifacts and be for one algorithm that will be built from scripts within the `MyLeanAlgorithmTemplate` directory
 
 Check the template dir `MyLeanAlgorithmTemplate` for a 'non-functional' python Lean example with some goodies I left in. At a minimum you will always need:
-* A `QCAlgorithm` class written in either .cs or .py - `algo.py` - this is your actual trading algorithm file which can be written in either `python` or `C#`. `C#` for ultimate speed I suppose
+* A `QCAlgorithm` class written in either .cs or .py - `algo.py` - this is your actual trading algorithm file which can be written in either `python` or `C#`. `C#` for ultimate speed I suppose. This is what is worth 1080$ / month !!!!!!!!! you simply write your algo and Lean/this project does the rest. Love you jaredbroad - sickkkk object oriented stuff
 * `config.json` file (this will specify import config items, mostly leave unchanged). Change it to add:
     1. your brokerage API keys (yes, KEEP YOUR FORKEDREPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE KEEP YOUR REPOS PRIVATE!!)
 
@@ -106,7 +106,6 @@ Check the template dir `MyLeanAlgorithmTemplate` for a 'non-functional' python L
     * `algorithm-language` - Algorithm language selector - options CSharp, Python
     * `algorithm-type-name` - this is the name of the QCAlgorithm class you wrote in either C# or python as explained above.
     * `environment` - The config for the environment that will get run. Search for `live-alpaca` environment later in the example file. It'll mostly just be what I have for live trading. You can set paper for paper i think. Please research live source code to understand this fully?
-* `algo.py` (or `algo.cs`) - this is what is worth 1080$ / month !!!!!!!!! you simply write your algo and Lean does the rest. Love you jaredbroad - sickkkk object oriented stuff
 * `Dockerfile` - This builds the docker file. Please add whatever stuff you need in here. For brokerages, you will need to copy and paste my line to comment out `ValidateSubscription()` from the Brokerage code and other stuff I have in there. Other than that I know I've added AWS, my own projects, several brokerages etc. This example shows you one brokerage, but it should at least get you up to  executing the algorithm script you put in `algo.py`. Bitcoin and other wallet addresses above :')
 * `run_algo.sh` - This is the final file that you will run using `bash run_algo.sh` in a Linux shell to run the docker container that will run the lean algo. It contains cleanup code that cleans old containers with Lean executions that you canceled with Ctrl-C keyboard interrupts..If history is important, you will want to remove those. Crap this is only for Linux right now because it's a shell script. Open to pull requests lol 
 * For cloning brokerage projects in the Dockerfile, add `GITHUB_USERNAME` and `GITHUB_PAT` (your personal access token) as environment variables to your local environment. In linux you would use `export GITHUB_USERNAME=vrindger` etc...
