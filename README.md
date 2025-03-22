@@ -3,11 +3,10 @@
 This project aims to create a true, actual, non-commercial, community edition or free and open source version of QuantConnect lean. It does not require any subscriptions. It simply makes the beautiful QuantConnect Lean engine available with all the brokers in a local manner for you. Trading is a private affair and I know how important a local platform is for you. It was for me. I've followed Jared Broad over the years, who is the genius CEO and founder of QuantConnect, is actually part Austin Powers, part Dr. Evil and part Mini-me, a confused individual. He makes sure all his code is open source, however, the source code is unusable for the majority of the world as it is. He wants you to use his cloud platform and subscriptions despite the engine being open source. Therefore, there are projects like this that need to crop up. I know if I searched for 'actually open source lean' or 'truly open source lean' or 'madly open source lean' or 'deeply open source lean', others must have also. This project aims to help those people, because there isn't such a project currently and this has worked so far for me in my personal trading algorithms. You can fork this, privatize it, use it to make money, whatever. 
 
 Some caveats though:
-1. if you make money from this, please please please do share some with me as I'm still in a 9 to 5 x 50 year rut
-1. It's a very rudimentary setup with shell scripts and plain docker. Should toally be pythonized
-2. It doesn't have plotting
-3. No warranties absolutely not. This is fully open source and usable as is for any purposes without warranties
-4. If u have pull requests for nice features, I will integrate them in for the world. 
+* if you make money from this, please please please do share some with me as I'm still in a 9 to 5 x 50 year rut
+* It's a very rudimentary setup with shell scripts and plain docker. Should toally be pythonized
+* No warranties absolutely not. This is fully open source and usable as is for any purposes without warranties
+* If u have pull requests for nice features, I will integrate them in for the world. 
 
 ## Please pay me if you made money from this, which I know some of you will, given that 40% of IB accounts are profitable...!!:
 
