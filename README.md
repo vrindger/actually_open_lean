@@ -78,6 +78,7 @@ Install python, pylance vscode extensions
 * You want to create a static copy of your GitHub repository, including its submodule, into a new repository without any ongoing synchronization. This means you want a one-time, independent copy. Here's how to achieve that:
   * `git clone https://github.com/vrindger/actually_open_lean --recurse-submodules`
     * yes you will need to [add your computer's key to your Github account](https://stackoverflow.com/a/41716198) to be able to recurse the submodule `Lean`. You don't need Step 3.2 that last step to force private key..
+    * if you already cloned it without the --recurse-submodules, you can run this command anywhere inside the cloned repo `git submodule update --init --recursive` and it will pull Lean for you
   * `cd actually_open_lean`
   * Create a new PRIVATE repository inside your Github account
   * Note the repo url for the above new repository
