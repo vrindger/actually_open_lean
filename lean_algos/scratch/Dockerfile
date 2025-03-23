@@ -57,8 +57,9 @@ RUN dotnet sln add QuantConnect.AlpacaBrokerage/*csproj && \
 COPY algo.py $LEAN_DIR/Algorithm.Python    
 COPY config.json $LEAN_DIR/Launcher/config.json
 
-# Build Lean
-RUN dotnet build -c Debug
+# Build affected Lean projects
+RUN dotnet build -c Debug Algorithm.Python/QuantConnect.Algorithm.Python.csproj
+RUN dotnet build -c Debug Launcher
 
 # Set the entrypoint
 WORKDIR $LEAN_DEBUG_DIR
