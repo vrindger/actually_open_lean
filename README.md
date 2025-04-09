@@ -1,22 +1,18 @@
 # Actually FOSS open source quantconnect lean engine
 
-This project aims to create a true, actual, non-commercial, community edition or free and open source version of QuantConnect lean. It does not require any subscriptions. It simply makes the beautiful QuantConnect Lean engine available with all the brokers in a local manner for you. Trading is a private affair and I know how important a local platform is for you. It was for me. I've followed Jared Broad over the years, who is the genius CEO and founder of QuantConnect, is actually part Austin Powers, part Dr. Evil and part Mini-me, a confused individual. He makes sure all his code is open source, however, the source code is unusable for the majority of the world as it is. He wants you to use his cloud platform and subscriptions despite the engine being open source. Therefore, there are projects like this that need to crop up. I know if I searched for 'actually open source lean' or 'truly open source lean' or 'madly open source lean' or 'deeply open source lean', others must have also. This project aims to help those people, because there isn't such a project currently and this has worked so far for me in my personal trading algorithms. You can fork this, privatize it, use it to make money, whatever. 
+This project aims to create a true, actual, non-commercial, community edition or free and open source version of QuantConnect lean. It does not require any subscriptions. It simply makes the beautiful QuantConnect Lean engine available with all the brokers in a local manner for you. Trading is a private affair and I know how important a local platform is for you. It was for me. I've followed Jared Broad over the years, who is the genius CEO and founder of QuantConnect, is actually part Austin Powers, part Dr. Evil and part Mini-me, a confused individual. He makes sure all his code is open source, however, the source code is unusable for the majority of the world as it is. He wants you to use his cloud platform and subscriptions despite the engine being open source. Therefore, there are projects like this that need to crop up. I know if I searched for 'actually open source lean' or 'truly open source lean' or 'madly open source lean' or 'deeply open source lean', others must have also and come up with nothing...still nothing..someone please SEO this project. This project aims to help those people, because there isn't such a project currently and this has worked so far for me in my personal trading algorithms. You can fork this, privatize it, use it to make money, whatever. 
 
 Some caveats though:
-* if you make money from this, please please please do share some with me as I'm still in a 9 to 5 x 50 year rut
+* if you make money from this, please share some with me as I'm still in a 9 to 5 x 50 year rut
 * It's a very rudimentary setup with shell scripts and plain docker. Should toally be pythonized
-* No warranties absolutely not. This is fully open source and usable as is for any purposes without warranties
+* No warranties..absolutely not. This is fully open source and usable as is for any purposes without warranties
 * If u have pull requests for nice features, I will integrate them in for the world. 
 
-## Please pay me if you made money from this, which I know some of you will, given that 40% of IB accounts are profitable...!!:
-
-My receiving wallets:
+## My receiving wallets:
 * Ethereum 0xd576227aCc7d74259F66a8AFd379C7f36eCee41A (includes Ethereum compatible networks like Polygon, Arbitrum, OP Mainnet, Base, Blast, Linea and Avalanche)
 * Solana ArTNKfq3MWF3JfZXAquE5dhAQQGWiUVNw1ufkuV8WwAU
 * Bitcoin bc1q3guagg7zrh3ssw3vgw88jsrj8lulqfzf508u0x
 * Dogecoin DSRYJhMLzyiQajrSpZQgc2hfPwpc2gEqae
-
-I'm a simple musician (robinhood?) and this trading stuff is just annoying to me
 
 ## Documentation
 
@@ -56,7 +52,7 @@ And tons of beautiful, [documentation](https://www.quantconnect.com/docs/v2) on 
 i'm using vs code in windows subsystem on linux. Ubuntu linux works great for this. You could use an ubuntu VM or other linux.
 Install python, pylance vscode extensions
 
-* Set up code autocomplete for vs code
+* Set up code autocomplete for vs code (OPTIONAL, but very very helpful)
   * Create python environment somewhere on your machine and install these packages:
     * install miniconda. google search for downloading the ubuntu installer shell script and run it using `bash Miniconda.sh`
   * start new terminal after conda installed
@@ -105,9 +101,9 @@ Check the template dir `MyLeanAlgorithmTemplate` for a 'non-functional' python L
     * `algorithm-location`: "../../../Algorithm.Python/algo.py" Yes you need the 3 dots because this will be executed from a dll inside Lean/Launcher/Debug 
     * `algorithm-language` - Algorithm language selector - options CSharp, Python
     * `algorithm-type-name` - this is the name of the QCAlgorithm class you wrote in either C# or python as explained above.
-    * `environment` - The config for the environment that will get run. Search for `live-alpaca` environment later in the example file. It'll mostly just be what I have for live trading. You can set paper for paper i think. Please research live source code to understand this fully?
-* `Dockerfile` - This builds the docker file. Please add whatever stuff you need in here. For brokerages, you will need to copy and paste my line to comment out `ValidateSubscription()` from the Brokerage code and other stuff I have in there. Other than that I know I've added AWS, my own projects, several brokerages etc. This example shows you one brokerage, but it should at least get you up to  executing the algorithm script you put in `algo.py`. Bitcoin and other wallet addresses above :')
-* `run_algo.sh` - This is the final file that you will run using `bash run_algo.sh` in a Linux shell to run the docker container that will run the lean algo. It contains cleanup code that cleans old containers with Lean executions that you canceled with Ctrl-C keyboard interrupts..If history is important, you will want to remove those. Crap this is only for Linux right now because it's a shell script. Open to pull requests lol 
+    * `environment` - The config for the environment that will get run. Search for `live-alpaca` environment later in the example file to check what settings are under that env.
+* `Dockerfile` - This builds the docker file. Please add whatever stuff you need in here. For brokerages, you will need to copy and paste my line to comment out `ValidateSubscription()` from the Brokerage code and other stuff I have in there. Other than that I've added AWS, my own projects, several brokerages etc. This example shows you one brokerage, but it should at least get you up to executing the algorithm script you put in `algo.py`. 
+* `run_algo.sh` - This is the final file that you will run using `bash run_algo.sh` in a Linux shell to run the docker container that will run the lean algo. It contains cleanup code that cleans old containers with Lean executions that you canceled with Ctrl-C keyboard interrupts. If history is important, you will want to remove those.
 * For cloning brokerage projects in the Dockerfile, add `GITHUB_USERNAME` and `GITHUB_PAT` (your personal access token) as environment variables to your local environment. In linux you would use `export GITHUB_USERNAME=vrindger` etc...
 
 That's it! Run your algorithm by going into it's directory and executing `bash run_algo.sh`! You will see the magical Lean get instantiated locally if you did everything right and pay me at all my crypto wallets above.
@@ -139,18 +135,18 @@ RUN sed -i 's/^\s*ValidateSubscription();/\/\/&/' $LEAN_DIR/QuantConnect.AlpacaB
 
 ## Step 2 - Create your own trading algo! U can copy mine but use your own brokerage keys etc
 
-* Create a new dir in the lean_algos dir with your own config file and an algo.py or algo.cs file for C#.
+* Create a new dir in the lean_algos dir with your own config file and an `algo.py` or `algo.cs` file for C#.
 
 * To create algo, look at the template dir under `lean_algos`
 
-* `MyLeanAlgorithm` is my example algorithm using my config file(a `config.json`) which used to have my secret keys for my brokerage's paper account. The algorithm file is a .py file.
+* `MyLeanAlgorithm` is my example algorithm using my config file(a `config.json`) which used to have my secret keys for my brokerage's paper account. The algorithm file is a `.py` file.
 
-* Yes, u will need every single file - the json file, an algo file, Dockerfile AND the .sh bash file.
+* Yes, you will need every single file - the json file, an algo file, Dockerfile AND the `run_algo.sh` bash file. You can also split up build and run from the run_algo.sh file if you need to.
 
 
 ## Step 3 - Run bash script
 
-Before running the bash script, you will need to set environment variables for Git because you will be cloning n number of Brokerage projects for your project. So you can add the following to your ~/.bashrc file in linux:
+Before running the bash script, you will need to set environment variables for Git because you will be cloning any number of Brokerage projects for your project. So you can add the following to your ~/.bashrc file in linux:
 ```
 export GITHUB_USERNAME=vrindger
 export GITHUB_PAT=yourgithubpersonalaccesstokenhere
@@ -215,80 +211,6 @@ Engine.Main(): Press any key to continue.
      ```
 
 # SEO
-
-Cru-cru-cruisin'
-
-I got my top down
-And I'm ready to roll
-Watch me go now (go now)
-I'm leaving this town
-To the Costa Del Sol
-Come on, let's go now (go now)
-
-The stars are out tonight
-The moon is shining down on me
-With rays of pure delight
-And I'll be spendin'
-
-24-7 in my 911
-And I ain't gonna work a 9 to 5
-24-7 in my 911
-On a highway to heaven
-It's the time of my life
-
-Cruisin', cruisin' down the street
-Cruisin' up and down the street
-
-You're my lover, you're my Romeo
-Watch me glow now
-Rockin' to the rhythm
-On Venga Radio (Venga Radio)
-Don't let go now (go now)
-
-The stars are out tonight
-The moon is shining down on me
-With rays of pure delight
-And I'll be spendin'
-
-24-7 in my 911
-And I ain't gonna work a 9 to 5
-24-7 in my 911
-On a highway to heaven
-It's the time of my life
-
-24-7 in my 911
-And I ain't gonna work a 9 to 5
-24-7 in my 911
-On a highway to heaven
-It's the time of my life
-
-Cruisin', cruisin' down the street
-Cruisin' up and down the street
-Cruisin', cruisin' down the street
-Cruisin' up and down the street
-
-24-7 in my 911
-And I ain't gonna work a 9 to 5
-24-7 in my 911
-On a highway to heaven
-It's the time of my life
-
-24-7 in my 911
-And I ain't gonna work a 9 to 5
-24-7 in my 911
-On a highway to heaven
-It's the time of my life
-
-24-7 in my 911
-And I ain't gonna work a 9 to 5
-24-7 in my 911
-On a highway to heaven
-It's the time of my life
-Source: Musixmatch
-
-give me great search engine terms 100 for "actually open source quantconnect lean" someone might search for my new project's readme in github so they will find it
-
-Alright, let's craft 100 search engine terms designed to maximize the visibility of your "actually open source QuantConnect LEAN" project on GitHub. We'll target a range of search intents, from general to highly specific.
 
 General Open Source & QuantConnect:
     foss foss foss foss fossest foss free and open source free open source free source 
@@ -418,57 +340,3 @@ Adding Descriptive Terms:
     efficient open source LEAN trading
     modern open source LEAN engine
     comprehensive open source LEAN documentation 100.active open source LEAN community
-
-I'll be your dream, I'll be your wish, I'll be your fantasy
-I'll be your hope, I'll be your love, be everything that you need
-I love you more with every breath truly, madly, deeply do
-I will be strong, I will be faithful 'cause I'm counting on
-
-A new beginnin'
-A reason for livin'
-A deeper meaning, yeah
-
-Well, I wanna stand with you on a mountain
-I wanna bathe with you in the sea
-I wanna lay like this forever
-Until the sky falls down on me
-
-And when the stars are shining brightly in the velvet sky
-I'll make a wish, send it to heaven, then make you want to cry
-The tears of joy for all the pleasure and the certainty
-That we're surrounded by the comfort and protection
-
-Of the highest powers
-In lonely hours (lonely hours, girl)
-The tears devour you
-
-Well, I wanna stand with you on a mountain
-I wanna bathe with you in the sea
-I wanna lay like this forever
-Until the sky falls down on me
-
-Oh, can you see it, baby?
-You don't have to close your eyes
-It's standin' right before you
-All that you need will surely come
-Ooh-ooh-ooh, yeah
-
-I'll be your dream, I'll be your wish, I'll be your fantasy
-I'll be your hope, I'll be your love, be everything that you need
-I'll love you more with every breath, truly, madly, deeply do
-Mm
-
-I wanna stand with you on a mountain
-I wanna bathe with you in the sea
-I wanna lay like this forever
-Until the sky falls down on me
-Well, I wanna stand with you on a mountain
-I wanna bathe with you in the sea
-I want to live like this forever
-Until the sky falls down on me
-
-Ooh-ooh-ooh, ooh-ooh-ooh-yeah
-Ooh-ooh-ooh
-La-la-di-da-yeah, da-yeah, la
-La-la-di-da-yeah, da-yeah, la
-Source: Musixmatch

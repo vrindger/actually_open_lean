@@ -1,5 +1,6 @@
 cp -rf ../../base .
 BASE_DIR=./base
+git submodule update --remote
 
 ALGO=scratch
 lower_case_algo=$(echo $ALGO | tr '[:upper:]' '[:lower:]')
@@ -14,4 +15,4 @@ docker build --build-arg CONFIG_TO_USE=$ALGO \
 
 rm -rf base
 # run built image
-docker run -it lean_$lower_case_algo:debug
+docker run -it lean_$lower_case_algo:debug  --config /base/config.json --algorithm-location /base/algo.py

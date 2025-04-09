@@ -48,13 +48,12 @@ WORKDIR $LEAN_DIR
 RUN dotnet sln add QuantConnect.AlpacaBrokerage/*csproj && \
     dotnet sln remove Tests/*csproj
 
-# Copy the algo and config files 
-#Copy to Algorithm.Csharp for a .cs file
-COPY algo.py $LEAN_DIR/Algorithm.Python    
-COPY config.json $LEAN_DIR/Launcher/config.json
-
 # Build the Launcher Lean project which builds everything it needs to build
 RUN dotnet build -c Debug Launcher
+ 
+# Copy the algo and config files 
+COPY algo.py $BASE_DIR
+COPY config.json $BASE_DIR
 
 # Set the entrypoint
 WORKDIR $LEAN_DEBUG_DIR
